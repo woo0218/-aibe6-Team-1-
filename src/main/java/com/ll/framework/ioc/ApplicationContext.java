@@ -1,11 +1,21 @@
 package com.ll.framework.ioc;
 
+import com.ll.domain.testPost.testPost.repository.TestPostRepository;
+import com.ll.domain.testPost.testPost.service.TestPostService;
+
 public class ApplicationContext {
+    private final TestPostService testPostService;
+    private final TestPostRepository testPostRepository;
     public ApplicationContext() {
 
+        testPostRepository = new TestPostRepository();
+        testPostService = new TestPostService(testPostRepository);
     }
 
     public <T> T genBean(String beanName) {
-        return (T) null;
+        if(beanName.equals("testPostService")){
+            return (T) testPostService;
+        }
+        return null;
     }
 }
